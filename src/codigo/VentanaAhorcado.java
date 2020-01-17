@@ -6,6 +6,7 @@
 package codigo;
 
 import java.awt.Image;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -18,7 +19,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     //Esta variable guarda cuántos fallos llevo en el juego. 
     int numeroFallos = 0;
     
-    String palabraOculta = "CETYS";
+    String palabraOculta = eligePalabra();
     
     /**
      * Creates new form VentanaAhorcado
@@ -26,6 +27,20 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     public VentanaAhorcado() {
         initComponents();
         dibujaImagen();
+        //Inicializo el jLabel en el que se muestran los guiones bajos. Que aparezcan los guiones donde deberán ir las letras. 
+        String auxiliar = ""; //Esto va a poner guiones bajos con espacios para la palabra que se elija
+        for (int i=0; i < palabraOculta.length(); i++) {
+            auxiliar = auxiliar + "_ ";
+        }
+        jLabel1.setText(auxiliar); 
+    }
+    
+    //eligePalabra va a seleccionar una palabra al azar de un array de palabras.
+    private String eligePalabra() {
+        String [] listaPalabras = {"CETYS","HOLA", "HABIBI", "BORREGUITO", "BABYYODA"};
+        Random aleatorio = new Random(); //variable aleatoria para elegir una palabra al azar. 
+        int posicion = aleatorio.nextInt(listaPalabras.length); //declaramos un int para que elija una posición de entre la lista de palabras.
+        return listaPalabras[posicion].toUpperCase();
     }
     
     //Vamos a crear un método que lea lo que haya dentro del botón que haya sido pulsado.
