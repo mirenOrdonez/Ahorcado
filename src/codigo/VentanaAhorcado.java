@@ -18,7 +18,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     
     //Esta variable guarda cuántos fallos llevo en el juego. 
     int numeroFallos = 0;
-    
+    boolean partidaTerminada = false; //indica si la partida ha terminado. 
     String palabraOculta = eligePalabra();
     
     /**
@@ -37,16 +37,19 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     
     //eligePalabra va a seleccionar una palabra al azar de un array de palabras.
     private String eligePalabra() {
-        String [] listaPalabras = {"CETYS","HOLA", "HABIBI", "BORREGUITO", "BABYYODA"};
+        String [] listaPalabras = {"CETYS", "HOLA", "HABIBI", "BORREGUITO", "BABYYODA", "SLAPCHOP", "KAREL"};
         Random aleatorio = new Random(); //variable aleatoria para elegir una palabra al azar. 
         int posicion = aleatorio.nextInt(listaPalabras.length); //declaramos un int para que elija una posición de entre la lista de palabras.
         return listaPalabras[posicion].toUpperCase();
     }
     
+    
     //Vamos a crear un método que lea lo que haya dentro del botón que haya sido pulsado.
     private void chequeaBoton(JButton boton) {
+        if (!partidaTerminada) {
         boton.setEnabled(false);
         chequeaLetra(boton.getText());
+        }
     }
     
     //Vamos a crear un método que lea la letra que ha sido pulsada. 
@@ -71,10 +74,14 @@ public class VentanaAhorcado extends javax.swing.JFrame {
             if (!palabraConGuiones.contains("_")) {
                 numeroFallos = -1;
                 dibujaImagen();
+                partidaTerminada = true;  
             }
         }
         else {
             numeroFallos++;
+            if (numeroFallos == 6) {
+                partidaTerminada = true;
+            }
             dibujaImagen();
         }
         
@@ -147,7 +154,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Malayalam MN", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("SignPainter", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("_ _ _ _ _ ");
 
@@ -341,6 +348,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("SignPainter", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 153));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("EL AHORCADO");
 
